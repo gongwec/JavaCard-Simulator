@@ -1,0 +1,11 @@
+extends layout
+block content
+  .hidden-xs.hidden-sm.col-md-6.full-height
+    include ../partials/documentation.jade
+  .col-md-6.full-height
+    .row.full-height
+      #console
+
+  script(src="/javascripts/jqconsole.js")
+  script(src="/javascripts/main.js")
+  script(src="/javascripts/commands.js")

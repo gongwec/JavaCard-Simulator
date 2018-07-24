@@ -1,0 +1,39 @@
+extends layout
+block content
+  .jumbotron
+    .container
+      .col-md-7
+       h1 Java Card Online Simulator
+       p
+         | An Open Platform for the Simulation of Java Card Applets.
+         br
+         | A BSc Disertation Project by Adam Noakes.
+       p 
+         a.btn.btn-primary.btn-lg(href='/simulator') Simulator »
+      .col-md-5.hidden-sm.hidden-xs
+        .row
+          img.center-block.img-responsive(src= "/images/coverphoto.png")
+  .container
+    .row
+      .col-md-4
+        h2 Java Card Platform
+        p
+          | Java Card technology was developed by Sun Microsystems (now a subsidy of Oracle) to enable applications written in a subset of the Java programming language, to be run in a secure environment on devices such as smart cards.
+        p
+          a.btn.btn-default(href='http://www.oracle.com/technetwork/java/embedded/javacard/overview/index.html', role='button') Java Card »
+      .col-md-4  
+        h2 Node.JS
+        p
+          | Node.js is a framework for developing fast and scalable server-side web applications, written in the JavaScript programming language. This project uses Node.js to simulate the Java Card Runtime Environment.
+        p
+          a.btn.btn-default(href='https://nodejs.org/en/', role='button') Node.js »
+      .col-md-4
+        h2 Open Source
+        p
+          | This project was prodcued as part of a BSc Dissertation. All of the code generated for this project is provided Open Source and intended to be further developed.
+        p
+          a.btn.btn-default(href='https://github.com/adamnoakes/year3project', role='button') View code »        
+    hr
+    footer
+      p University of Southampton 2016 - 
+        a(href='http://www.adamnoakes.co.uk') Adam Noakes
