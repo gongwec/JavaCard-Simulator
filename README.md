@@ -1,4 +1,4 @@
-# JavaCard_Simulator
+# JavaCard Simulator
 Refactoring of a Java Card simulator on a Node.js platform
 
 This project was produced as a MSc Dissertation and serves as a refactoring of a previous BSc Dissertation by Adam Noakes.
