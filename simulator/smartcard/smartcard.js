@@ -104,6 +104,7 @@ module.exports = {
  *
  * @param  {Smartcard} smartcard  The Smartcard object.
  * @param  {Array}     apduScript An array of apdu commands.
+<<<<<<< HEAD
  * @return {Promise}   result      The result of the process.
  * @author Weichao Gong
  * University of Southampton
@@ -201,3 +202,4 @@ async function processAPDU(smartcard, apduArray){
         });
     }
 }
+

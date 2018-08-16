@@ -58,6 +58,7 @@ module.exports = {
     //     });
     // },
 
+
     /**
      * Sets up execution environment for standard APDU command and pushes
      * executeBytecode function call onto event loop.
@@ -69,6 +70,7 @@ module.exports = {
      * University of Southampton
      */
     process: async function(smartcard, params){
+
         var capFile = smartcard.RAM.selectedApplet.CAP;
         var appletReference = smartcard.RAM.selectedApplet.appletRef;
         var i = cap.getStartCode(capFile, smartcard.RAM.selectedApplet.AID, 7) - 1;
@@ -84,6 +86,7 @@ module.exports = {
 
         frames[currentFrame].local_vars.push(Number(appletReference));
         frames[currentFrame].local_vars.push(params[0]);
+
 
         var result = await executeBytecode(smartcard, capFile, i, frames, currentFrame)
             .catch(error => {return new Promise(function (resolve, reject) {
@@ -121,6 +124,7 @@ module.exports = {
     //     });
     // },
 
+
     /**
      * Sets up execution environment for select applet APDU command and pushes
      * executeBytecode function call onto event loop.
@@ -132,6 +136,7 @@ module.exports = {
      * University of Southampton
      */
     selectApplet: async function(smartcard, startcode){
+
         var capFile = smartcard.RAM.selectedApplet.CAP;
         var appletReference = smartcard.RAM.selectedApplet.appletRef;
         var i = startcode - 1;
@@ -186,6 +191,7 @@ module.exports = {
     //
     // },
 
+
     /**
      * Sets up execution environment for create instance APDU command and pushes
      * executeBytecode function call onto event loop.
@@ -233,6 +239,7 @@ module.exports = {
         this.return_pointer = 0;
     }
 };
+
 
 // /**
 //  * Executes a single Opcode instruction, opcodes[i].
@@ -1586,6 +1593,7 @@ module.exports = {
  * University of Southampton
  */
 async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
+
     var opcodes = capFile.COMPONENT_Method.method_info;
     var operandStack = frames[currentFrame].operand_stack;
     var localVariables = frames[currentFrame].local_vars;
@@ -2171,6 +2179,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
                 return new Promise(function (resolve, reject) {
                     resolve("0x9000");//success
                 });
+
             }
             break;
         case mnemonics.ireturn: //0x79
@@ -2298,8 +2307,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
                 }
                 i += 3; break;
             } else {
-                i = ins.invokevirtualInternal(capFile, opcodes, operandStack,
-                    frames, params);
+                i = ins.invokevirtualInternal(capFile, opcodes, operandStack, frames, params);
                 frames[frames.length - 1].invoker = currentFrame;
                 currentFrame = frames.length - 1;
             }
@@ -2308,8 +2316,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
             params = constantPool[(opcodes[i + 1] << 8) + opcodes[i + 2]].info.slice(0);//info
             frames[currentFrame].return_pointer = i + 3;
             if(params[0] >= 128){
-                apiresult = ins.invokeObjectMethod(smartcard, capFile, heap,
-                    operandStack, params, 6);
+                apiresult = ins.invokeObjectMethod(smartcard, capFile, heap, operandStack, params, 6);
                 if(apiresult instanceof Error){
                     return await apiError(apiresult)
                         .catch(error => {return new Promise(function (resolve, reject) {
@@ -2318,8 +2325,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
                 }
                 i += 3; break;
             } else {
-                i = ins.invokespecialInternal(opcodes, operandStack, frames,
-                    params);
+                i = ins.invokespecialInternal(opcodes, operandStack, frames, params);
                 frames[frames.length - 1].invoker = currentFrame;
                 currentFrame = frames.length - 1;
             }
@@ -2339,8 +2345,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
                 i += 3; break;
             } else {
                 currentFrame = frames.length;
-                i = ins.invokespecialInternal(opcodes, operandStack, frames,
-                    params);
+                i = ins.invokespecialInternal(opcodes, operandStack, frames, params);
             }
             break;
         case mnemonics.invokeinterface: //0x8E
@@ -2348,8 +2353,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
             var numOfArgs = opcodes[i + 1];
             var classRef = constantPool[(opcodes[i + 2] << 8) + opcodes[i + 3]].info;
             var methodToken = opcodes[i + 4];
-            apiresult = ins.invokeinterface(smartcard, capFile, operandStack,
-                classRef, methodToken, numOfArgs);
+            apiresult = ins.invokeinterface(smartcard, capFile, operandStack, classRef, methodToken, numOfArgs);
             if(apiresult instanceof Error){
                 return await apiError(apiresult)
                     .catch(error => {return new Promise(function (resolve, reject) {
@@ -2370,7 +2374,6 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
                 if (info[0] < 128) {
                     //get class
                     offset = (info[0] << 8) + info[1];
-
                     for (j = 0; j < capFile.COMPONENT_Class.i_count; j++) {
                         if (capFile.COMPONENT_Class.interface_info[j].start == offset) {
                             //allocate space on the heap
@@ -2929,6 +2932,7 @@ async function executeBytecode(smartcard, capFile, i, frames, currentFrame){
 /**
  * Parses and sends api error message
  * @param  {Error}   apiresult
+<<<<<<< HEAD
  * @return {Promise}   result      The result of the process.
  * @author Weichao Gong
  * University of Southampton

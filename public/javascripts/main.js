@@ -101,27 +101,6 @@ function getCards(handler) {
     });
 }
 
-/*var getCards = function(handler){
-    return new Promise(function(resolve, reject)){
-        $.ajax({
-            type: "GET",
-            url: "/simulator/smartcards",
-            success: function(cards){
-               resolve(cards);
-               $.each(cards, function(i, card) {
-                   jqconsole.Write(card + " ", "response-ok");
-               });
-               jqconsole.Write('\n');
-               jqconsole.Prompt(true, handler);
-            }
-            error: function(error){
-               reject(error);
-            }
-         });
-    });
-}*/
-
-
 /* Sends request to create a new smart card on the server */
 function newCard(handler, cardName) {
     $.ajax({
@@ -130,7 +109,7 @@ function newCard(handler, cardName) {
         url: "/simulator/smartcards",
         success: function (data) {
             if (data.result) {
-                jqconsole.Write("Successfully created virtual smart card: " + data.cardName, "response-ok");
+                jqconsole.Write("Successfully created virtual smart card: " + data.card.ops[0].EEPROM.cardName, "response-ok");
             } else {
                 jqconsole.Write(data.message, "response-error");
             }
@@ -205,3 +184,23 @@ function sendAPDU(APDU, handler) {
         }
     });
 }
+
+// var getCards = function(handler){
+//     return new Promise(function(resolve, reject){
+//         $.ajax({
+//             type: "GET",
+//             url: "/simulator/smartcards",
+//             success: function(cards){
+//                resolve();
+//                /*$.each(cards, function(i, card) {
+//                    jqconsole.Write(card + " ", "response-ok");
+//                });
+//                jqconsole.Write('\n');
+//                jqconsole.Prompt(true, handler);*/
+//             },
+//             error: function(error){
+//                reject(error);
+//             }
+//          });
+//     });
+// }
