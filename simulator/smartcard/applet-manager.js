@@ -77,6 +77,7 @@ module.exports = {
      * @param  {Smartcard} smartcard
      * @param  {Array} buffer
      * @return {Promise}   result      The result of the process.
+     *
      * @author Weichao Gong
      * University of Southampton
      */
@@ -90,7 +91,7 @@ module.exports = {
                 });});
         } else if(!smartcard.RAM.selectedApplet.AID){
             return new Promise(function (resolve, reject) {
-                reject(new Error('0x6A82'));
+                reject(new Error('0x6A82')); //No Applet Selected
             });
         }
 
@@ -101,7 +102,6 @@ module.exports = {
                     .catch(error => {return new Promise(function (resolve, reject) {
                         reject(error);
                     });});
-                //console.log(result);
                 return result;
             }
         }catch (e) {
@@ -202,6 +202,7 @@ module.exports = {
      * @param  {Smartcard} smartcard The smartcard objet.
      * @param  {Array}     appletAID The applet to be deselected.
      * @return {Promise}   result    The result of the process.
+     *
      * @author Weichao Gong
      * University of Southampton
      */
@@ -324,6 +325,7 @@ module.exports = {
      * @param  {Smartcard} smartcard The smartcard objet.
      * @param  {Array}     appletAID The applet to be deselected.
      * @return {Promise}   result    The result of the process.
+     *
      * @author Weichao Gong
      * University of Southampton
      */

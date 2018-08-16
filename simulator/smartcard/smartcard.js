@@ -54,6 +54,7 @@ module.exports = {
 	 * @param  {Smartcard} smartcard   The Smartcard object.
 	 * @param  {Array}     apduScript  An array of apdu commands.
 	 * @return {Promise}   result      The result of the process.
+     *
 	 * @author Weichao Gong
 	 * University of Southampton
 	 */
@@ -105,13 +106,14 @@ module.exports = {
  * @param  {Smartcard} smartcard  The Smartcard object.
  * @param  {Array}     apduScript An array of apdu commands.
  * @return {Promise}   result      The result of the process.
+ *
  * @author Weichao Gong
  * University of Southampton
  */
 async function processScript(smartcard, apduScript){
     if(!(apduScript instanceof Array)){
         return new Promise(function (resolve, reject) {
-            reject(new Error('0x6FFF'));
+            reject(new Error('0x6FFF'));//Unrecognised APDU format
         });
     }
     try{
@@ -166,18 +168,21 @@ async function processScript(smartcard, apduScript){
  * Takes a single APDU commands as an array sends it to the applet manager
  * one by one to be processed.
  *
- * @param  {Smartcard} smartcard The Smartcard object.
- * @param  {Array}     apduArray An apdu command as a byte array.
+ * @param  {Smartcard} smartcard   The Smartcard object.
+ * @param  {Array}     apduArray   An apdu command as a byte array.
  * @return {Promise}   result      The result of the process.
+ *
  * @author Weichao Gong
  * University of Southampton
  */
 async function processAPDU(smartcard, apduArray){
     var tmpApdu = new apdu.APDU(); //contruct an APDU objects
     apdu.constr(tmpApdu, apduArray);
+
+
     if(tmpApdu.broken){
         return new Promise(function (resolve, reject) {
-            reject(new Error('0x6F00'));
+            reject(new Error('0x6F00'));//Broken APDU
         });
     }
 
@@ -201,3 +206,4 @@ async function processAPDU(smartcard, apduArray){
         });
     }
 }
+
